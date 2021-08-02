@@ -1,3 +1,4 @@
+#!/bin/bash
 # Remove cloud-init to speed up the boot in virtualbox
 sudo touch /etc/cloud/cloud-init.disabled
 sudo apt remove cloud-init --yes

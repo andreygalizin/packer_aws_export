@@ -23,7 +23,7 @@ source "amazon-ebs" "ubuntu" {
   }
   launch_block_device_mappings {
     device_name = "/dev/sda1"
-    volume_size = 40
+    volume_size = 8
     volume_type = "gp2"
     delete_on_termination = true
   }
@@ -34,6 +34,10 @@ build {
   sources = ["source.amazon-ebs.ubuntu"]
 
   provisioner "shell" {
-    script = "./server_setup.sh"
+    script = "./wait.sh"
   }
+
+#  provisioner "shell" {
+#    script = "./server_setup.sh"
+#  }
 }
