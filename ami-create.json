@@ -3,7 +3,8 @@
     "variables": {
         "region" : "us-east-2",
         "size" : "t2.micro",
-        "build" : "James Bond agent 007"
+        "build" : "James Bond agent 007",
+        "name": "${env(`CUSTOM_AMI_NAME`)}"
     },
     "builders":[
         {
@@ -33,7 +34,7 @@
             "tags" : {
               "Name" : "tcprelay-{{ user `build` }}",
               "application" : "tcprelay",
-              "version" : "{{ user `build` }}"
+              "version" : "{{ user `name` }}"
             }
 
         }
