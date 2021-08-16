@@ -1,0 +1,47 @@
+
+{
+    "variables": {
+        "region" : "us-east-2",
+        "size" : "t2.micro",
+        "build" : "James Bond agent 007"
+    },
+    "builders":[
+        {
+           "ami_name": "shirin",
+            "type":"amazon-ebs",
+            "region":"{{user `region`}}",
+            "instance_type":"{{ user `size` }}",
+            "ssh_pty": true,
+            "source_ami_filter": {
+               "filters": {
+                  "name": "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*",
+                  "root-device-type": "ebs",
+                  "virtualization-type": "hvm"
+               },
+               "most_recent": true,
+               "owners": ["099720109477"]
+            },
+            "launch_block_device_mappings": [
+              {
+                "device_name": "/dev/sda1",
+                "volume_size": 8,
+                "volume_type": "gp2",
+                "delete_on_termination": true
+              }
+            ],
+            "ssh_username": "ubuntu",
+            "tags" : {
+              "Name" : "tcprelay-{{ user `build` }}",
+              "application" : "tcprelay",
+              "version" : "{{ user `build` }}"
+            }
+
+        }
+    ],
+    "provisioners":[
+    	{
+    		"type" : "shell",
+    		"script": "./wait.sh"
+    	}
+    ]
+}
